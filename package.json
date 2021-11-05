@@ -1,5 +1,5 @@
 {
-  "name": "morney-3",
+  "name": "morney",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -38,14 +38,5 @@
     "svg-sprite-loader": "6.0.9",
     "typescript": "4.1.6",
     "vue-template-compiler": "2.6.14"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [
-      "vue-cli-service lint",
-      "git add"
-    ]
   }
 }
