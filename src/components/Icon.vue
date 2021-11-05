@@ -7,31 +7,26 @@
 <script lang="ts">
 // eslint-disable-next-line no-undef
 let importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
-try {
-  importAll(require.context('../assets/icons', true, /\.svg&/));
-} catch (error) {
-  console.log(error);
-}
+try {importAll(require.context('../assets/icons', true, /\.svg$/));} catch (error) {console.log(error);}
 
-/*
-import x from '@/assets/icons/label.svg';
+/*import x from '@/assets/icons/label.svg';
 import y from '@/assets/icons/money.svg';
 import z from '@/assets/icons/statistics.svg';
 
 console.log(x);
 console.log(y);
-console.log(z);
-*/
+console.log(z);*/
 
 export default {
-  props:['name'],
+  props: ['name'],
   name: 'Icon'
 };
 </script>
 
 <style lang="scss" scoped>
 .icon {
-  width: 1em; height: 1em;
+  width: 1em;
+  height: 1em;
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
