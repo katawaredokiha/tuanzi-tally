@@ -13,13 +13,15 @@ try {
   console.log(error);
 }
 
-/*import x from '@/assets/icons/label.svg';
+/*
+import x from '@/assets/icons/label.svg';
 import y from '@/assets/icons/money.svg';
 import z from '@/assets/icons/statistics.svg';
 
 console.log(x);
 console.log(y);
-console.log(z);*/
+console.log(z);
+*/
 
 export default {
   props:['name'],
