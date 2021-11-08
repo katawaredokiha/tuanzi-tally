@@ -26,7 +26,8 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
-  output = '0';
+  @Prop() readonly value!: number;
+  output = this.value.toString();
 
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement);
@@ -57,6 +58,7 @@ export default class Types extends Vue {
   }
 
   ok() {
+    this.$emit('update:value', this.output);
   }
 }
 </script>
