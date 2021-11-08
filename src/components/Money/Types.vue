@@ -13,12 +13,12 @@
 
 <script lang="ts">// 删除 lang 默认为 js
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
   type = '-'; // '-'表示支出，'+'表示收入
-  selectType(type: string) { // type 只能是 '-' 和 '+' 中的一个
+  selectType(type: string) {
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown');
     }
