@@ -4,7 +4,7 @@
       <router-link class="tag"
                    v-for="tag in tags" :key="tag.id"
                    :to="`/labels/edit/${tag.id}`">
-        <span>{{tag.name}}</span>
+        <span>{{ tag.name }}</span>
         <Icon name="right"/>
       </router-link>
     </div>
@@ -20,12 +20,11 @@ import {Component} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
 import Button from '@/components/Button.vue';
 
-tagListModel.fetch();
 @Component({
   components: {Button}
 })
 export default class Labels extends Vue {
-  tags = tagListModel.data;
+  tags = window.tagList;
 
   createTag() {
     const name = window.prompt('请输入标签名');
