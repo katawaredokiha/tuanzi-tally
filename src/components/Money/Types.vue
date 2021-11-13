@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="value === '-' && 'selected'"
+      <li :class="{[classPrefix+'-item']: classPrefix, selected: value==='-'}"
           @click="selectType('-')">支出
       </li>
-      <li :class="value === '+' && 'selected'"
+      <li :class="{[classPrefix+'-item']: classPrefix, selected: value==='+'}"
           @click="selectType('+')">收入
       </li>
     </ul>
@@ -17,7 +17,8 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
-  @Prop() readonly value!: string;// ! 可以忽略有无初始值
+  @Prop(String) readonly value!: string;// ! 可以忽略有无初始值
+  @Prop(String) classPrefix?: string;// ? 表示可能是 undefined
 
   selectType(type: string) {
     if (type !== '-' && type !== '+') {
