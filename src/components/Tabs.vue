@@ -19,6 +19,9 @@ export default class Tabs extends Vue {
   readonly value!: string;
   @Prop(String)
   classPrefix?: string;
+  // 使用 height 控制 Tabs 高度示例 ↓
+  // @Prop({type: String, default: '64px'})
+  // height!: string;
 
   liClass(item: DataSourceItem) {
     return {
