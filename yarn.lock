@@ -1213,6 +1213,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/echarts@4.6.3":
+  version "4.6.3"
+  resolved "https://registry.npmmirror.com/@types/echarts/download/@types/echarts-4.6.3.tgz?cache=0&sync_timestamp=1637265149611&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fecharts%2Fdownload%2F%40types%2Fecharts-4.6.3.tgz#227b33b106203ceb2ca4fa51760f406618caa89a"
+  integrity sha1-InszsQYgPOsspPpRdg9AZhjKqJo=
+  dependencies:
+    "@types/zrender" "*"
+
 "@types/express-serve-static-core@*", "@types/express-serve-static-core@^4.17.18":
   version "4.17.24"
   resolved "https://registry.nlark.com/@types/express-serve-static-core/download/@types/express-serve-static-core-4.17.24.tgz?cache=0&sync_timestamp=1629707798663&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fexpress-serve-static-core%2Fdownload%2F%40types%2Fexpress-serve-static-core-4.17.24.tgz#ea41f93bf7e0d59cd5a76665068ed6aab6815c07"
@@ -1419,6 +1426,11 @@
   integrity sha1-2JWojHA7eK8EZaneiKqSxhQwsJI=
   dependencies:
     "@types/yargs-parser" "*"
+
+"@types/zrender@*":
+  version "4.0.1"
+  resolved "https://registry.npmmirror.com/@types/zrender/download/@types/zrender-4.0.1.tgz#6280c40207927ce086be24b4391d668cd330e956"
+  integrity sha1-YoDEAgeSfOCGviS0OR1mjNMw6VY=
 
 "@typescript-eslint/eslint-plugin@4.28.4":
   version "4.28.4"
@@ -4117,6 +4129,13 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+echarts@4.8.0:
+  version "4.8.0"
+  resolved "https://registry.npmmirror.com/echarts/download/echarts-4.8.0.tgz#b2c1cfb9229b13d368ee104fc8eea600b574d4c4"
+  integrity sha1-ssHPuSKbE9No7hBPyO6mALV01MQ=
+  dependencies:
+    zrender "4.3.1"
 
 editorconfig@^0.15.3:
   version "0.15.3"
@@ -11284,3 +11303,8 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zrender@4.3.1:
+  version "4.3.1"
+  resolved "https://registry.nlark.com/zrender/download/zrender-4.3.1.tgz#baf8aa6dc8187a2f819692d7d5f9bedfa2b90fa3"
+  integrity sha1-uviqbcgYei+BlpLX1fm+36K5D6M=
