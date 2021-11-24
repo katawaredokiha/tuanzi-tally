@@ -1,9 +1,11 @@
 <template>
-  <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
-    <li v-for="item in dataSource" :key="item.value" class="tabs-item"
-        :class="liClass(item)" @click="select(item)">{{ item.text }}
-    </li>
-  </ul>
+  <div class="tabs-wrapper">
+    <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
+      <li v-for="item in dataSource" :key="item.value" class="tabs-item"
+          :class="liClass(item)" @click="select(item)">{{ item.text }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">
@@ -37,27 +39,37 @@ export default class Tabs extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.tabs {
-  background: #C4C4C4;
+@import "~@/assets/style/helper.scss";
+$background: #ffffff;
+$main-color: #f69604;
+.tabs-wrapper {
+  background: $background;
   display: flex;
-  text-align: center;
-  font-size: 24px;
-  &-item {
-    width: 50%;
-    height: 64px;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+  @extend %outerShadow;
+  .tabs {
+    background: $background;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    &.selected::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: #333;
+    width: 40%;
+    font-size: 16px;
+    color: $main-color;
+    &-item {
+      width: 50%;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid $main-color;
+      border-radius: 4px;
+      position: relative;
+      &.selected {
+        background: $main-color;
+        color: $background;
+      }
     }
   }
+
 }
 </style>
