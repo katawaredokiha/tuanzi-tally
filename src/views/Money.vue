@@ -64,11 +64,16 @@ export default class Money extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
 }
 .notes {
-  padding: 12px 0;
+  padding: 8px 0;
+  @extend %innerShadow;
+}
+.createdAt {
+  padding: 4px 0;
 }
 </style>
