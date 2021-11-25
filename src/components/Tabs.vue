@@ -48,7 +48,7 @@ $main-color: #f69604;
   justify-content: center;
   align-items: center;
   padding: 8px 0;
-  @extend %outerShadow;
+  @extend %innerShadow;
   .tabs {
     background: $background;
     display: flex;

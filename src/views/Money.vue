@@ -13,9 +13,10 @@
                 :value.sync="record.notes"/>
     </div>
     <Tags @update:value="record.tags = $event"/>
-    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
+<!--    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>-->
   </Layout>
 </template>
+
 
 <script lang="ts">
 import Vue from 'vue';
@@ -30,11 +31,12 @@ import recordTypeList from '@/constants/typeList';
   components: {Tabs, Tags, FormItem, NumberPad},
 })
 export default class Money extends Vue {
+  h = document.body.clientHeight;
+
   get recordList() {
     return this.$store.state.recordList;
   }
 
-  h = document.body.clientHeight;
   recordTypeList = recordTypeList;
 
   // eslint-disable-next-line no-undef
