@@ -33,14 +33,16 @@ export default class Layout extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
 .layout-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  .head {
+    position: relative;
+  }
 }
 .content {
-  overflow: auto;
+  overflow-y: auto;
   flex: 1;
 }
 </style>

@@ -1,5 +1,8 @@
 <template>
   <Layout>
+    <div class="createTag-wrapper">
+      <Button class="createTag" @click="createTag">新建标签</Button>
+    </div>
     <div class="tags">
       <router-link class="tag"
                    v-for="tag in tags" :key="tag.id"
@@ -7,9 +10,6 @@
         <span>{{ tag.name }}</span>
         <Icon name="right"/>
       </router-link>
-    </div>
-    <div class="createTag-wrapper">
-      <Button class="createTag" @click="createTag">新建标签</Button>
     </div>
   </Layout>
 </template>
@@ -42,10 +42,26 @@ export default class Labels extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
+.createTag {
+  background: #767676;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  height: 40px;
+  padding: 0 16px;
+  &-wrapper {
+    @extend %innerShadow-bottom;
+    text-align: center;
+    padding: 8px 0;
+  }
+}
 .tags {
   background: white;
   font-size: 16px;
   padding-left: 16px;
+  overflow-y: auto;
+  flex: 1;
   > .tag {
     min-height: 44px;
     display: flex;
@@ -58,19 +74,6 @@ export default class Labels extends mixins(TagHelper) {
       color: #666;
       margin-right: 16px;
     }
-  }
-}
-.createTag {
-  background: #767676;
-  color: white;
-  border-radius: 4px;
-  border: none;
-  height: 40px;
-  padding: 0 16px;
-  &-wrapper {
-    text-align: center;
-    padding: 16px;
-    margin-top: 44-16px;
   }
 }
 </style>
