@@ -1,12 +1,19 @@
 <template>
   <div class="tags">
-    <div class="new">
-      <button @click="createTag">新增标签</button>
-    </div>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">{{ tag.name }}
+          @click="toggle(tag)">
+        <div class="icon-wrapper">
+          <Icon name="money"/>
+        </div>
+        <span>{{ tag.name }}</span>
+      </li>
+      <li class="new">
+          <div class="icon-wrapper" @click="createTag">
+            <Icon name="edit"/>
+          </div>
+          <span>新增标签</span>
       </li>
     </ul>
   </div>
@@ -21,7 +28,7 @@ import TagHelper from '@/mixins/TagHelper';
 export default class Tags extends mixins(TagHelper) {
   selectedTags: string[] = [];
 
-  get tagList(){
+  get tagList() {
     return this.$store.state.tagList;
   }
 
@@ -42,40 +49,53 @@ export default class Tags extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+$bg: #f8f8f8;
+$h: 24px;
 .tags {
   background: white;
   font-size: 14px;
   padding: 16px;
   flex-grow: 1;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  justify-content: start;
+  overflow-y: auto;
   > .current {
     display: flex;
     flex-wrap: wrap;
     > li {
-      $bg: #d9d9d9;
-      background: $bg;
-      $h: 24px;
-      height: $h;
-      line-height: $h;
-      border-radius: $h/2;
-      padding: 0 16px;
-      margin-right: 12px;
-      margin-top: 4px;
-      &.selected {
-        background: darken($bg, 50%);
-        color: white;
+      padding: 4px 0;
+      margin-bottom: 4px;
+      width: 25%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .icon-wrapper {
+        background: $bg;
+        border-radius: 20px;
+        padding: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        > .icon {
+          width: $h;
+          height: $h;
+        }
       }
-    }
-  }
-  > .new {
-    padding-top: 16px;
-    button {
-      background: transparent;
-      border: none;
-      color: #999;
-      border-bottom: 1px solid;
-      padding: 0 4px;
+      > span {
+        max-width: 70%;
+        margin-top: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      &.selected {
+        .icon-wrapper {
+          background: #f69604;
+          color: white;
+        }
+      }
     }
   }
 }
