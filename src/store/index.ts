@@ -49,12 +49,12 @@ const store = new Vuex.Store({
       }
     },
     fetchRecords(state) {
+      const tagsName = ['吃喝','交通','买菜','服饰鞋包','日用品','红包','话费','娱乐','医疗','养车','网费','学习','数码','水电']
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
       if (!state.tagList || state.tagList.length === 0) {
-        store.commit('createTag', '衣');
-        store.commit('createTag', '食');
-        store.commit('createTag', '住');
-        store.commit('createTag', '行');
+        for(let i= 0;i<tagsName.length;i++) {
+          store.commit('createTag', `${tagsName[i]}`);
+        }
       }
     },
     createRecord(state, record: RecordItem) {

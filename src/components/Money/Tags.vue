@@ -5,7 +5,7 @@
           :class="{selected: selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
         <div class="icon-wrapper">
-          <Icon name="money"/>
+          <Icon :name="tag.name"/>
         </div>
         <span>{{ tag.name }}</span>
       </li>
