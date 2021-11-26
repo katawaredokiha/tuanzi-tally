@@ -1,19 +1,26 @@
 <template>
   <div class="tabs-wrapper">
+    <span>
+      <Icon name="left"/>
+    </span>
     <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
       <li v-for="item in dataSource" :key="item.value" class="tabs-item"
           :class="liClass(item)" @click="select(item)">{{ item.text }}
       </li>
     </ul>
+    <Button class="createTag" @click="createTag">新建</Button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
+import Button from '@/components/Button.vue';
 
 type DataSourceItem = { text: string, value: string }
-@Component
+@Component({
+  components: {Button}
+})
 export default class Tabs extends Vue {
   @Prop({required: true, type: Array})
   dataSource!: DataSourceItem[];
@@ -35,6 +42,12 @@ export default class Tabs extends Vue {
   select(item: DataSourceItem) {
     this.$emit('update:value', item.value);
   }
+
+  createTag() {
+    const name = window.prompt('请输入标签名');
+    if (!name) { return window.alert('标签名不能为空'); }
+    this.$store.commit('createTag', name);
+  }
 }
 </script>
 
@@ -45,9 +58,10 @@ $main-color: #f69604;
 .tabs-wrapper {
   background: $background;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 8px 0;
+  position: relative;
   @extend %innerShadow-bottom;
   .tabs {
     background: $background;
@@ -70,6 +84,16 @@ $main-color: #f69604;
       }
     }
   }
-
+  > span {
+    width: 48px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 24px;
+    margin-left: 8px;
+  }
+  > .button {
+    margin-right: 8px;
+  }
 }
 </style>
