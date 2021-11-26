@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout typeOfTabs="edit-tabs">
       <div class="tags">
         <router-link class="tag"
                      v-for="tag in tags" :key="tag.id"

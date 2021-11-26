@@ -1,7 +1,7 @@
 <template>
   <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
     <header class="head">
-      <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
+      <Tabs :data-source="recordTypeList" :value.sync="record.type" :type-of-tabs="typeOfTabs"/>
     </header>
     <main class="content" :class="classPrefix && `${classPrefix}-content`   ">
       <slot/>
@@ -22,6 +22,7 @@ import recordTypeList from '@/constants/typeList';
 
 export default class Layout extends Vue {
   @Prop() classPrefix?: string;
+  @Prop() typeOfTabs?: string;
 
   recordTypeList = recordTypeList;
 

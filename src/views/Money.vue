@@ -13,7 +13,6 @@
                 :value.sync="record.notes"/>
     </div>
     <Tags @update:value="record.tags = $event"/>
-<!--    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>-->
   </Layout>
 </template>
 
@@ -24,10 +23,9 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component} from 'vue-property-decorator';
-import Tabs from '@/components/Tabs.vue';
 
 @Component({
-  components: {Tabs, Tags, FormItem, NumberPad},
+  components: {Tags, FormItem, NumberPad},
 })
 export default class Money extends Vue {
 
@@ -73,5 +71,10 @@ export default class Money extends Vue {
 }
 .createdAt {
   padding: 4px 0;
+}
+.head .tabs-wrapper {
+  .icon, .button {
+    display: none;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-wrapper">
+  <div v-if="typeOfTabs === 'edit-tabs'" class="tabs-wrapper">
     <span>
       <Icon name="left"/>
     </span>
@@ -9,6 +9,13 @@
       </li>
     </ul>
     <Button class="createTag" @click="createTag">新建</Button>
+  </div>
+  <div v-else class="tabs-wrapper" style="justify-content: center">
+    <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
+      <li v-for="item in dataSource" :key="item.value" class="tabs-item"
+          :class="liClass(item)" @click="select(item)">{{ item.text }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -28,6 +35,8 @@ export default class Tabs extends Vue {
   readonly value!: string;
   @Prop(String)
   classPrefix?: string;
+  @Prop(String)
+  typeOfTabs?: string;
   // 使用 height 控制 Tabs 高度示例 ↓
   // @Prop({type: String, default: '64px'})
   // height!: string;
@@ -92,7 +101,7 @@ $main-color: #f69604;
     font-size: 24px;
     margin-left: 8px;
   }
-  > .button {
+  > button {
     margin-right: 8px;
   }
 }
