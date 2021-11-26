@@ -1,5 +1,5 @@
 <template>
-  <Layout class-prefix="layout" :style="{height:h+'px'}">
+  <Layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <div class="createdAt">
       <FormItem field-name="日期"
@@ -30,7 +30,6 @@ import Tabs from '@/components/Tabs.vue';
   components: {Tabs, Tags, FormItem, NumberPad},
 })
 export default class Money extends Vue {
-  h = document.body.clientHeight;
 
   get recordList() {
     return this.$store.state.recordList;
