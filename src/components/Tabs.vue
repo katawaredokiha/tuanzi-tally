@@ -1,7 +1,7 @@
 <template>
   <div v-if="typeOfTabs === 'edit-tabs'" class="tabs-wrapper">
     <span>
-      <Icon name="left"/>
+      <Icon name="left" @click="goBack"/>
     </span>
     <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
       <li v-for="item in dataSource" :key="item.value" class="tabs-item"
@@ -56,6 +56,10 @@ export default class Tabs extends Vue {
     const name = window.prompt('请输入标签名');
     if (!name) { return window.alert('标签名不能为空'); }
     this.$store.commit('createTag', name);
+  }
+
+  goBack() {
+    this.$router.back();
   }
 }
 </script>
