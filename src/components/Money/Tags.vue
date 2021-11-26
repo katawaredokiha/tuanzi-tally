@@ -10,10 +10,12 @@
         <span>{{ tag.name }}</span>
       </li>
       <li class="new">
-          <div class="icon-wrapper" @click="createTag">
+        <router-link to="/labels">
+          <div class="icon-wrapper">
             <Icon name="edit"/>
           </div>
-          <span>新增标签</span>
+          <span>编辑</span>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -78,12 +80,15 @@ $h: 24px;
         display: flex;
         justify-content: center;
         align-items: center;
-        > .icon {
+        .icon {
           width: $h;
           height: $h;
         }
       }
-      > span {
+      a {
+        text-align: center;
+      }
+      span {
         max-width: 70%;
         margin-top: 4px;
         white-space: nowrap;
