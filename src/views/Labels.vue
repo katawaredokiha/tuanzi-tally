@@ -1,6 +1,13 @@
 <template>
   <Layout typeOfTabs="edit-tabs">
       <div class="tags">
+        <router-link to="/labels/create-tags" class="tag add">
+          <span>
+            <Icon name="add"/>
+            添加新标签
+          </span>
+          <Icon name="right"/>
+        </router-link>
         <router-link class="tag"
                      v-for="tag in tags" :key="tag.id"
                      :to="`/labels/edit/${tag.id}`">
@@ -52,6 +59,12 @@ export default class Labels extends mixins(TagHelper) {
   padding-left: 16px;
   overflow-y: auto;
   flex: 1;
+  > .add {
+    color: #f69604;
+    .icon {
+      color: #f69604;
+    }
+  }
   > .tag {
     min-height: 44px;
     display: flex;
