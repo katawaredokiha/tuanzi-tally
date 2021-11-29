@@ -1,5 +1,5 @@
 <template>
-  <Layout typeOfTabs="edit-tabs">
+  <Layout>
       <div class="tags">
         <router-link to="/labels/create-tags" class="tag add">
           <span>
