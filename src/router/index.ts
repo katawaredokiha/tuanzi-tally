@@ -2,7 +2,8 @@ import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
-import Statistics from '@/views/account.vue';
+import account from '@/views/Account.vue';
+import Statistics from '@/views/Statistics.vue';
 import CreateTags from '@/views/CreateTags.vue';
 import EditLabel from '@/views/EditLabel.vue';
 import NotFound from '@/views/NotFound.vue';
@@ -21,6 +22,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/labels',
     component: Labels
+  },
+  {
+    path: '/account',
+    component: account
   },
   {
     path: '/statistics',
