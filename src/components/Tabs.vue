@@ -2,7 +2,8 @@
   <div class="tabs-wrapper">
     <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
       <li v-for="item in dataSource" :key="item.value" class="tabs-item"
-          :class="liClass(item)" @click="select(item)">{{ item.text }}
+          :class="liClass(item)" @click="select(item)">
+        {{ item.text }}
       </li>
     </ul>
   </div>
@@ -52,12 +53,13 @@ export default class Tabs extends Vue {
 $background: #ffffff;
 $main-color: #f69604;
 .tabs-wrapper {
+  width: 100%;
+  height: 48px;
   background: $background;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 8px 0;
-  position: relative;
   @extend %innerShadow-bottom;
   .tabs {
     background: $background;

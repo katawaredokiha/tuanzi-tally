@@ -1,23 +1,24 @@
 <template>
   <Layout>
-      <div class="tags">
-        <router-link to="/labels/create-tags" class="tag add">
+    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
+    <div class="tags">
+      <router-link to="/labels/create-tags" class="tag add">
           <span>
             <Icon name="add"/>
             添加新标签
           </span>
-          <Icon name="right"/>
-        </router-link>
-        <router-link class="tag"
-                     v-for="tag in tags" :key="tag.id"
-                     :to="`/labels/edit/${tag.id}`">
+        <Icon name="right"/>
+      </router-link>
+      <router-link class="tag"
+                   v-for="tag in tags" :key="tag.id"
+                   :to="`/labels/edit/${tag.id}`">
           <span>
             <Icon :name="tag.name"/>
             {{ tag.name }}
           </span>
-          <Icon name="right"/>
-        </router-link>
-      </div>
+        <Icon name="right"/>
+      </router-link>
+    </div>
   </Layout>
 </template>
 
@@ -25,9 +26,19 @@
 import {Component} from 'vue-property-decorator';
 import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
+import Tabs from '@/components/Tabs.vue';
+import recordTypeList from '@/constants/typeList';
 
-@Component
+@Component({
+  components: {Tabs}
+})
 export default class Labels extends mixins(TagHelper) {
+  recordTypeList = recordTypeList;
+  // eslint-disable-next-line no-undef
+  record: RecordItem = {
+    tags: [], notes: '', type: '+', amount: 0, createdAt: new Date().toISOString()
+  };
+
   get tags() {
     return this.$store.state.tagList;
   }

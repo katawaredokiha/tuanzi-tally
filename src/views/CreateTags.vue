@@ -1,5 +1,5 @@
 <template>
-  <layout headDisplay="none">
+  <layout>
     <header>
       新建标签
     </header>
@@ -12,7 +12,7 @@
         图标
       </div>
       <ul class="newTagIcons">
-        <li :class="{selected}">
+        <li active-class="selected">
           <div class="icon-wrapper">
             <Icon name="add"/>
           </div>
