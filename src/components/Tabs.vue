@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-wrapper" style="justify-content: center">
+  <div class="tabs-wrapper">
     <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
       <li v-for="item in dataSource" :key="item.value" class="tabs-item"
           :class="liClass(item)" @click="select(item)">{{ item.text }}
@@ -54,7 +54,7 @@ $main-color: #f69604;
 .tabs-wrapper {
   background: $background;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 8px 0;
   position: relative;
