@@ -8,6 +8,7 @@
           :class="liClass(item)" @click="select(item)">{{ item.text }}
       </li>
     </ul>
+    <span></span>
   </div>
   <div v-else class="tabs-wrapper" style="justify-content: center">
     <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
@@ -103,14 +104,6 @@ $main-color: #f69604;
     text-align: center;
     font-size: 24px;
     margin-left: 8px;
-  }
-  &::after {
-    content: "";
-    display: block;
-    clear: both;
-    width: 48px;
-    height: 32px;
-    margin-right: 8px;
   }
 }
 </style>
