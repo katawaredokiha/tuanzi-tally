@@ -2,13 +2,6 @@
   <Layout class-prefix="labels">
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <div class="tags">
-      <router-link to="/labels/create-tags" class="tag add">
-          <span>
-            <Icon name="add"/>
-            添加新标签
-          </span>
-        <Icon name="right"/>
-      </router-link>
       <router-link class="tag"
                    v-for="tag in tags" :key="tag.id"
                    :to="`/labels/edit/${tag.id}`">
@@ -19,6 +12,9 @@
         <Icon name="right"/>
       </router-link>
     </div>
+    <router-link to="/labels/create-tags" class="add">
+      <Button>添加新标签</Button>
+    </router-link>
   </Layout>
 </template>
 
@@ -28,9 +24,10 @@ import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
 import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/typeList';
+import Button from '@/components/Button.vue';
 
 @Component({
-  components: {Tabs}
+  components: {Button, Tabs}
 })
 export default class Labels extends mixins(TagHelper) {
   recordTypeList = recordTypeList;
@@ -51,25 +48,19 @@ export default class Labels extends mixins(TagHelper) {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-.tabs-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
+::v-deep .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .tags {
   background: white;
+  width: 100%;
   font-size: 16px;
-  padding-left: 16px;
-  margin-top: 48px;
+  padding: 0 16px;
+  flex: 1;
   overflow-y: auto;
-  //flex: 1;
-  height: calc(100% - 48px);
-  > .add {
-    color: #f69604;
-    .icon {
-      color: #f69604;
-    }
-  }
   > .tag {
     min-height: 44px;
     display: flex;
@@ -79,12 +70,21 @@ export default class Labels extends mixins(TagHelper) {
     svg {
       width: 18px;
       height: 18px;
-      color: #333;
-      margin-right: 16px;
+      color: #333333;
     }
     > span > svg {
       margin-right: 8px;
     }
+  }
+}
+.add {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    padding: 0 24px;
   }
 }
 </style>
