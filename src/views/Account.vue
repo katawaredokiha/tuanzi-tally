@@ -2,30 +2,29 @@
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <main>
-      <div class="chart-wrapper" ref="chartWrapper">
-        <Chart class="chart" :options="chartOptions"/>
-      </div>
-      <ol v-if="groupedList.length>0">
-        <li v-for="(group, index) in groupedList" :key="index">
-          <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
-          <ol>
-            <li v-for="item in group.items" :key="item.id" class="record">
-              <div class="left">
-                <div class="icon-wrapper">
-                  <Icon :name="item.tags[0].name"/>
+      <div class="detail">
+        <ol v-if="groupedList.length>0">
+          <li v-for="(group, index) in groupedList" :key="index">
+            <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
+            <ol>
+              <li v-for="item in group.items" :key="item.id" class="record">
+                <div class="left">
+                  <div class="icon-wrapper">
+                    <Icon :name="item.tags[0].name"/>
+                  </div>
+                  <div class="tag-notes">
+                    <span class="tagName">{{ tagString(item.tags) }}</span>
+                    <span class="notes">{{ item.notes }}</span>
+                  </div>
                 </div>
-                <div class="tag-notes">
-                  <span class="tagName">{{ tagString(item.tags) }}</span>
-                  <span class="notes">{{ item.notes }}</span>
-                </div>
-              </div>
-              <div class="right">￥{{ item.amount }} </div>
-            </li>
-          </ol>
-        </li>
-      </ol>
-      <div v-else class="noResult">
-        目前没有相关记录
+                <div class="right">￥{{ item.amount }} </div>
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <div v-else class="noResult">
+          目前没有相关记录
+        </div>
       </div>
     </main>
   </Layout>
@@ -44,15 +43,17 @@ import day from 'dayjs';
 @Component({
   components: {Tabs, Chart},
 })
-export default class Statistics extends Vue {
+export default class Account extends Vue {
+  type = '-';
+  recordTypeList = recordTypeList;
+
+  beforeCreate() {
+    this.$store.commit('fetchRecords');
+  }
+
   // eslint-disable-next-line no-undef
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
-  }
-
-  mounted() {
-    const div = (this.$refs.chartWrapper as HTMLDivElement);
-    div.scrollLeft = div.scrollWidth;
   }
 
   beautify(string: string) {
@@ -70,72 +71,6 @@ export default class Statistics extends Vue {
     } else {
       return day.format('YYYY年M月D日');
     }
-  }
-
-  get keyValueList() {
-    const today = new Date();
-    const array = [];
-    for (let i = 0; i <= 29; i++) {
-      // this.recordList = [{date:7.3, value:100}, {date:7.2, value:200}]
-      const dateString = day(today)
-          .subtract(i, 'day').format('YYYY-MM-DD');
-      const found = _.find(this.groupedList, {
-        title: dateString
-      });
-      array.push({
-        key: dateString, value: found ? found.total : 0
-      });
-    }
-    // 对日期进行排序
-    array.sort((a, b) => {
-      if (a.key > b.key) {
-        return 1;
-      } else if (a.key === b.key) {
-        return 0;
-      } else {
-        return -1;
-      }
-    });
-    return array;
-  }
-
-  get chartOptions() {
-    const keys = this.keyValueList.map(item => item.key);
-    const values = this.keyValueList.map(item => item.value);
-    return {
-      grid: {
-        left: 0,
-        right: 0,
-      },
-      xAxis: {
-        type: 'category',
-        data: keys,
-        axisTick: {alignWithLabel: true},
-        axisLine: {lineStyle: {color: '#666'}},
-        axisLabel: {
-          formatter: function (value: string, index: number) {
-            return value.substr(5);
-          }
-        }
-      },
-      yAxis: {
-        type: 'value',
-        show: false
-      },
-      series: [{
-        symbol: 'circle',
-        symbolSize: 12,
-        itemStyle: {borderWidth: 1, color: '#666', borderColor: '#666'},
-        // lineStyle: {width: 10},
-        data: values,
-        type: 'line'
-      }],
-      tooltip: {
-        show: true, triggerOn: 'click',
-        position: 'top',
-        formatter: '{c}'
-      }
-    };
   }
 
   get recordList() {
@@ -168,13 +103,6 @@ export default class Statistics extends Vue {
     });
     return result;
   }
-
-  beforeCreate() {
-    this.$store.commit('fetchRecords');
-  }
-
-  type = '-';
-  recordTypeList = recordTypeList;
 }
 </script>
 
@@ -192,12 +120,20 @@ export default class Statistics extends Vue {
     overflow-y: auto;
   }
 }
+.chart-title {
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-weight: 700;
+  color: #f69604;
+  background: #f8f8f8;
+}
 .echarts {
   max-width: 100%;
   height: 400px;
 }
 .chart {
-  display: none;
   width: 430%;
   &-wrapper {
     overflow: auto;
@@ -205,6 +141,8 @@ export default class Statistics extends Vue {
       display: none;
     }
   }
+}
+.detail {
 }
 .noResult {
   padding: 16px;
