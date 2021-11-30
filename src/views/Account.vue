@@ -216,6 +216,11 @@ export default class Statistics extends Vue {
   justify-content: space-between;
   align-items: center;
 }
+%text-hidden {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .title {
   @extend %item;
   padding: 4px 16px;
@@ -223,11 +228,19 @@ export default class Statistics extends Vue {
   color: #f69604;
   line-height: 16px;
   font-size: 14px;
+  > span {
+    display: block;
+    max-width: 50%;
+    @extend %text-hidden
+  }
 }
 .record {
   @extend %item;
-  padding: 8px 16px;
+  padding: 8px 0px;
+  margin: 0 16px;
   background: white;
+  border-bottom: 1px solid #f5f5f5;
+  // 去除最后一个 li 的下边框（最后面） ↓↓↓
   .left {
     @extend %item;
     justify-content: start;
@@ -255,9 +268,7 @@ export default class Statistics extends Vue {
       > span {
         display: block;
         max-width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        @extend %text-hidden
       }
       .tagName {
         font-size: 16px;
@@ -268,5 +279,13 @@ export default class Statistics extends Vue {
       }
     }
   }
+  .right {
+    max-width: 25%;
+    @extend %text-hidden
+  }
+}
+// 去除 .record 最后一个 li 的下边框
+.content main .record:nth-last-child(1) {
+  border-bottom: none;
 }
 </style>
