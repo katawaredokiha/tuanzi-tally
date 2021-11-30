@@ -1,5 +1,5 @@
 <template>
-  <Layout class-prefix="layout" recoreType>
+  <Layout class-prefix="layout">
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <Tags @update:value="record.tags = $event"/>
     <div class="notes">

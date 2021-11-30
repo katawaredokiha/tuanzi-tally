@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout class-prefix="labels">
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <div class="tags">
       <router-link to="/labels/create-tags" class="tag add">
@@ -51,25 +51,19 @@ export default class Labels extends mixins(TagHelper) {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-.createTag {
-  background: #767676;
-  color: white;
-  border-radius: 4px;
-  border: none;
-  height: 40px;
-  padding: 0 16px;
-  &-wrapper {
-    @extend %innerShadow-bottom;
-    text-align: center;
-    padding: 8px 0;
-  }
+.tabs-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 .tags {
   background: white;
   font-size: 16px;
   padding-left: 16px;
+  margin-top: 48px;
   overflow-y: auto;
-  flex: 1;
+  //flex: 1;
+  height: calc(100% - 48px);
   > .add {
     color: #f69604;
     .icon {
