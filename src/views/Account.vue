@@ -9,12 +9,17 @@
         <li v-for="(group, index) in groupedList" :key="index">
           <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
           <ol>
-            <li v-for="item in group.items" :key="item.id"
-                class="record"
-            >
-              <span>{{ tagString(item.tags) }}</span>
-              <span class="notes">{{ item.notes }}</span>
-              <span>￥{{ item.amount }} </span>
+            <li v-for="item in group.items" :key="item.id" class="record">
+              <div class="left">
+                <div class="icon-wrapper">
+                  <Icon :name="item.tags[0].name"/>
+                </div>
+                <div class="tag-notes">
+                  <span class="tagName">{{ tagString(item.tags) }}</span>
+                  <span class="notes">{{ item.notes }}</span>
+                </div>
+              </div>
+              <div class="right">￥{{ item.amount }} </div>
             </li>
           </ol>
         </li>
@@ -192,7 +197,7 @@ export default class Statistics extends Vue {
   height: 400px;
 }
 .chart {
-  //display: none;
+  display: none;
   width: 430%;
   &-wrapper {
     overflow: auto;
@@ -205,37 +210,63 @@ export default class Statistics extends Vue {
   padding: 16px;
   text-align: center;
 }
-::v-deep {
-  .type-tabs-item {
-    background: #C4C4C4;
-    &.selected {
-      background: white;
-      &::after {
-        display: none;
-      }
-    }
-  }
-  .interval-tabs-item {
-    height: 48px;
-  }
-}
 %item {
-  padding: 8px 16px;
-  line-height: 24px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  align-content: center;
+  align-items: center;
 }
 .title {
   @extend %item;
+  padding: 4px 16px;
+  background: #f5f5f5;
+  color: #f69604;
+  line-height: 16px;
+  font-size: 14px;
 }
 .record {
-  background: white;
   @extend %item;
-}
-.notes {
-  margin-right: auto;
-  margin-left: 16px;
-  color: #999;
+  padding: 8px 16px;
+  background: white;
+  .left {
+    @extend %item;
+    justify-content: start;
+    max-width: 75%;
+    .icon-wrapper {
+      width: 40px;
+      height: 40px;
+      background: #f0f0f0 ;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      > svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+    .tag-notes {
+      padding: 0 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: calc(100% - 40px);
+      > span {
+        display: block;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .tagName {
+        font-size: 16px;
+      }
+      .notes {
+        font-size: 12px;
+        color: #999;
+      }
+    }
+  }
 }
 </style>

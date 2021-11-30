@@ -39,7 +39,7 @@ export default class Money extends Vue {
 
   // eslint-disable-next-line no-undef
   record: RecordItem = {
-    tags: [], notes: '', type: '+', amount: 0, createdAt: new Date().toISOString()
+    tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString()
   };
 
   created() {
