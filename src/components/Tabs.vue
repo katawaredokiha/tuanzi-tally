@@ -50,8 +50,7 @@ export default class Tabs extends Vue {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-$background: #ffffff;
-$main-color: #f69604;
+$background: white;
 .tabs-wrapper {
   width: 100%;
   height: 48px;
@@ -66,18 +65,18 @@ $main-color: #f69604;
     display: flex;
     width: 40%;
     font-size: 16px;
-    color: $main-color;
+    color: $color-highlight;
     &-item {
       width: 50%;
       height: 32px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 1px solid $main-color;
+      border: 1px solid $color-highlight;
       border-radius: 4px;
       position: relative;
       &.selected {
-        background: $main-color;
+        background: $color-highlight;
         color: $background;
       }
     }
