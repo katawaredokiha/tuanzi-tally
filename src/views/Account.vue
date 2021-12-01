@@ -36,12 +36,9 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/typeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
-import Chart from '@/components/Chart.vue';
-import _ from 'lodash';
-import day from 'dayjs';
 
 @Component({
-  components: {Tabs, Chart},
+  components: {Tabs},
 })
 export default class Account extends Vue {
   type = '-';
@@ -178,7 +175,6 @@ export default class Account extends Vue {
   margin: 0 16px;
   background: white;
   border-bottom: 1px solid #f5f5f5;
-  // 去除最后一个 li 的下边框（最后面） ↓↓↓
   .left {
     @extend %item;
     justify-content: start;

@@ -8,6 +8,20 @@
           <Chart class="chart" :options="chartOptions"/>
         </div>
       </div>
+      <ul class="tags-account">
+        <li class="record-account">
+          <div class="left">
+            <div class="icon-wrapper">
+              <Icon name="吃喝"/>
+            </div>
+            <div class="tag-count">
+              <span class="tagName">吃喝123123</span>
+              <span class="count">123123</span>
+            </div>
+          </div>
+          <div class="right">￥999</div>
+        </li>
+      </ul>
     </main>
   </Layout>
 </template>
@@ -71,6 +85,7 @@ export default class Account extends Vue {
     return {
       grid: {
         top: 0,
+        bottom: 30,
         left: 0,
         right: 0,
       },
@@ -135,6 +150,10 @@ export default class Account extends Vue {
     });
     return result;
   }
+
+  get accountList() {
+
+  }
 }
 </script>
 
@@ -174,4 +193,68 @@ export default class Account extends Vue {
     }
   }
 }
+%item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+%text-hidden {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tags-account {
+  border-top: 1px solid #f5f5f5;
+}
+.record-account {
+  @extend %item;
+  padding: 8px 0px;
+  margin: 0 16px;
+  background: white;
+  border-bottom: 1px solid #f5f5f5;
+  .left {
+    @extend %item;
+    justify-content: start;
+    max-width: 75%;
+    .icon-wrapper {
+      width: 40px;
+      height: 40px;
+      background: #f0f0f0;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      > svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+    .tag-count {
+      padding: 0 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: calc(100% - 40px);
+      > span {
+        display: block;
+        max-width: 100%;
+        @extend %text-hidden
+      }
+      .tagName {
+        font-size: 16px;
+      }
+      .count {
+        font-size: 12px;
+        color: #999;
+      }
+    }
+  }
+  .right {
+    max-width: 25%;
+    @extend %text-hidden
+  }
+}
+// 去除 .record 最后一个 li 的下边框
 </style>
