@@ -3,9 +3,11 @@
     <header>
       新建标签
     </header>
+    {{ tag.name }}
     <div class="newTagName">
       <FormItem field-name="标签名"
-                placeholder="请输入标签名"/>
+                placeholder="请输入标签名"
+                :value.sync="tag.name"/>
     </div>
     <div class="tagsIcon">
       <div class="title">
@@ -60,7 +62,7 @@
       </ul>
     </div>
     <div class="button-wrapper">
-      <Button>确认</Button>
+      <Button @click="createTag">确认</Button>
     </div>
   </layout>
 </template>
@@ -70,21 +72,37 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
+import router from '@/router';
+
+const map: { [key: string]: string } = {
+  'tag name duplicated': '标签名重复了'
+};
 
 @Component({
   components: {Button, FormItem}
 })
 export default class createTags extends Vue {
-  selectedTags: string[] = [];
+  created() {
+    this.$store.commit('fetchTags');
+  }
 
-  toggle(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
-    if (index >= 0) {
-      this.selectedTags.splice(index, 1);
+  get tagList() {
+    return this.$store.state.tagList;
+  }
+
+  // eslint-disable-next-line no-undef
+  tag: Tag = {id: '', name: ''};
+
+  createTag() {
+    const name = this.tag.name
+    if (!name) { return window.alert('标签名不能为空'); }
+    this.$store.commit('createTag', name);
+    if (this.$store.state.createTagError) {
+      window.alert(map[this.$store.state.createTagError.message] || '未知错误');
     } else {
-      this.selectedTags.push(tag);
+      window.alert('标签创建成功');
+      router.back();
     }
-    this.$emit('update:value', this.selectedTags);
   }
 }
 </script>

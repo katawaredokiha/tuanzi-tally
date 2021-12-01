@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
-import router from '@/router';
 
 Vue.use(Vuex); // 把 store 绑到 Vue.prototype.$store = store
 
@@ -43,16 +42,16 @@ const store = new Vuex.Store({
       if (index >= 0) {
         state.tagList.splice(index, 1);
         store.commit('saveTags');
-        router.back();
+        window.alert('已删除');
       } else {
         window.alert('删除失败');
       }
     },
     fetchRecords(state) {
-      const tagsName = ['吃喝','交通','买菜','服饰鞋包','日用品','红包','话费','娱乐','医疗','养车','网费','学习','数码','水电']
+      const tagsName = ['吃喝', '交通', '买菜', '服饰鞋包', '日用品', '红包', '话费', '娱乐', '医疗', '养车', '网费', '学习', '数码', '水电'];
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
       if (!state.tagList || state.tagList.length === 0) {
-        for(let i= 0;i<tagsName.length;i++) {
+        for (let i = 0; i < tagsName.length; i++) {
           store.commit('createTag', `${tagsName[i]}`);
         }
       }
