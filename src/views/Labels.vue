@@ -2,15 +2,18 @@
   <Layout class-prefix="labels">
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <div class="tags">
-      <router-link class="tag"
-                   v-for="tag in tags" :key="tag.id"
-                   :to="`/labels/edit/${tag.id}`">
-          <span>
+      <div class="tag"
+           v-for="tag in tags" :key="tag.id">
+        <div class="icon-name">
+          <div class="icon-wrapper">
             <Icon :name="tag.name"/>
-            {{ tag.name }}
-          </span>
-        <Icon name="right"/>
-      </router-link>
+          </div>
+          <span>{{ tag.name }}</span>
+        </div>
+        <div class="icon-wrapper" @click="remove(tag.id)">
+          <Icon class="delete" name="delete"/>
+        </div>
+      </div>
     </div>
     <router-link to="/labels/create-tags" class="add">
       <Button>添加新标签</Button>
@@ -19,9 +22,8 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import {mixins} from 'vue-class-component';
-import TagHelper from '@/mixins/TagHelper';
 import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/typeList';
 import Button from '@/components/Button.vue';
@@ -29,12 +31,14 @@ import Button from '@/components/Button.vue';
 @Component({
   components: {Button, Tabs}
 })
-export default class Labels extends mixins(TagHelper) {
+export default class Labels extends Vue {
   recordTypeList = recordTypeList;
   // eslint-disable-next-line no-undef
   record: RecordItem = {
-    tags: [], notes: '', type: '+', amount: 0, createdAt: new Date().toISOString()
+    tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString()
   };
+  // eslint-disable-next-line no-undef
+  // tag: Tag = {id: '', name: ''};
 
   get tags() {
     return this.$store.state.tagList;
@@ -42,6 +46,14 @@ export default class Labels extends mixins(TagHelper) {
 
   beforeCreate() {
     this.$store.commit('fetchTags');
+  }
+
+  get currentTag() {
+    return this.$store.state.currentTag;
+  }
+
+  remove(id: string) {
+    this.$store.commit('removeTag', id);
   }
 }
 </script>
@@ -67,13 +79,35 @@ export default class Labels extends mixins(TagHelper) {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #e6e6e6;
-    svg {
-      width: 18px;
-      height: 18px;
-      color: #333333;
+    .icon-name {
+      max-width: 80%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      > span {
+        max-width: calc(100% - 28px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
-    > span > svg {
-      margin-right: 8px;
+    .icon-wrapper {
+      width: 24px;
+      height: 24px;
+      margin-right: 4px;
+      background: #f0f0f0;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg {
+        width: 18px;
+        height: 18px;
+        color: #333333;
+      }
+      .delete {
+        color: red;
+      }
     }
   }
 }
