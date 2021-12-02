@@ -8,20 +8,15 @@
           <Chart class="chart" :options="chartOptions"/>
         </div>
       </div>
-      <ul class="tags-account">
-        <li class="record-account">
-          <div class="left">
-            <div class="icon-wrapper">
-              <Icon name="吃喝"/>
-            </div>
-            <div class="tag-count">
-              <span class="tagName">吃喝123123</span>
-              <span class="count">123123</span>
-            </div>
+      <div class="record-account">
+        <div class="left">
+          <div class="icon-wrapper">
+            <Icon name="wallet"/>
           </div>
-          <div class="right">￥999</div>
-        </li>
-      </ul>
+          <div class="tagName">本月的总支出</div>
+        </div>
+        <div class="right">￥{{ allTotal() }}</div>
+      </div>
     </main>
   </Layout>
 </template>
@@ -148,7 +143,12 @@ export default class Account extends Vue {
         return sum + item.amount;
       }, 0);
     });
+    console.log(result);
     return result;
+  }
+
+  allTotal() {
+    return this.groupedList.map(x => x.total ?? 0).reduce((sum, el) => sum + el, 0);
   }
 }
 </script>
@@ -200,14 +200,11 @@ export default class Account extends Vue {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.tags-account {
-  border-top: 1px solid #f5f5f5;
-}
 .record-account {
   @extend %item;
-  padding: 8px 0px;
-  margin: 0 16px;
+  padding: 8px 16px;
   background: white;
+  border-top: 1px solid #f5f5f5;
   border-bottom: 1px solid #f5f5f5;
   .left {
     @extend %item;
@@ -222,29 +219,18 @@ export default class Account extends Vue {
       justify-content: center;
       align-items: center;
       > svg {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
       }
     }
-    .tag-count {
+    .tagName {
       padding: 0 8px;
+      font-size: 16px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
       max-width: calc(100% - 40px);
-      > span {
-        display: block;
-        max-width: 100%;
-        @extend %text-hidden
-      }
-      .tagName {
-        font-size: 16px;
-      }
-      .count {
-        font-size: 12px;
-        color: #999;
-      }
     }
   }
   .right {
@@ -252,5 +238,4 @@ export default class Account extends Vue {
     @extend %text-hidden
   }
 }
-// 去除 .record 最后一个 li 的下边框
 </style>
