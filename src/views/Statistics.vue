@@ -150,10 +150,6 @@ export default class Account extends Vue {
     });
     return result;
   }
-
-  get accountList() {
-
-  }
 }
 </script>
 
