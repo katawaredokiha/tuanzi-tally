@@ -13,7 +13,8 @@
           <div class="icon-wrapper">
             <Icon name="wallet"/>
           </div>
-          <div class="tagName">本月的总支出</div>
+          <div v-if="type === '-'" class="tagName">本月的总支出</div>
+          <div v-else class="tagName">本月的总收入</div>
         </div>
         <div class="right">￥{{ allTotal() }}</div>
       </div>
