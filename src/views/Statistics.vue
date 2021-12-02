@@ -79,8 +79,8 @@ export default class Account extends Vue {
     const values = this.keyValueList.map(item => item.value);
     return {
       grid: {
-        top: 0,
-        bottom: 30,
+        top: 40,
+        bottom: 40,
         left: 0,
         right: 0,
       },
@@ -88,7 +88,7 @@ export default class Account extends Vue {
         type: 'category',
         data: keys,
         axisTick: {alignWithLabel: true},
-        axisLine: {lineStyle: {color: '#666'}},
+        axisLine: {lineStyle: {color: '#666',width: 2}},
         axisLabel: {
           formatter: function (value: string, index: number) {
             return value.substr(5);
@@ -102,8 +102,12 @@ export default class Account extends Vue {
       series: [{
         symbol: 'circle',
         symbolSize: 12,
-        itemStyle: {borderWidth: 1, color: '#666', borderColor: '#666'},
-        // lineStyle: {width: 10},
+        itemStyle: {
+          borderWidth: 1,
+          color: '#26b2fc',
+          borderColor: '#26b2fc'
+
+        },
         data: values,
         type: 'line'
       }],
@@ -148,7 +152,7 @@ export default class Account extends Vue {
   }
 
   allTotal() {
-    return this.groupedList.map(x => x.total ?? 0).reduce((sum, el) => sum + el, 0);
+    return this.groupedList.reduce((sum, item) => sum + (item.total ?? 0), 0);
   }
 }
 </script>
@@ -211,16 +215,17 @@ export default class Account extends Vue {
     justify-content: start;
     max-width: 75%;
     .icon-wrapper {
-      width: 40px;
-      height: 40px;
-      background: #f0f0f0;
+      width: 32px;
+      height: 32px;
+      background: #f69604;
       border-radius: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
       > svg {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
+        color: white;
       }
     }
     .tagName {
@@ -230,7 +235,7 @@ export default class Account extends Vue {
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
-      max-width: calc(100% - 40px);
+      max-width: calc(100% - 32px);
     }
   }
   .right {
