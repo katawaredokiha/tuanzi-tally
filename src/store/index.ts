@@ -61,7 +61,8 @@ const store = new Vuex.Store({
         JSON.stringify(state.recordList));
     },
     fetchTags(state) {
-      const initialTags = [{name: '吃喝', type: '-'}, {name: '交通', type: '-'},
+      const initialTags = [
+        {name: '吃喝', type: '-'}, {name: '交通', type: '-'},
         {name: '买菜', type: '-'}, {name: '服饰鞋包', type: '-'},
         {name: '日用品', type: '-'}, {name: '零食水果', type: '-'},
         {name: '超市', type: '-'}, {name: '红包', type: '-'},
@@ -69,13 +70,16 @@ const store = new Vuex.Store({
         {name: '医疗', type: '-'}, {name: '养车', type: '-'},
         {name: '网费', type: '-'}, {name: '学习', type: '-'},
         {name: '数码', type: '-'}, {name: '水电', type: '-'},
-        {name: '房租', type: '-'}, {name: '房租', type: '-'},];
+        {name: '房租', type: '-'}, {name: '工资', type: '+'},
+        {name: '投资', type: '+'}, {name: '奖金', type: '+'},
+        {name: '兼职', type: '+'}, {name: '收款', type: '+'},
+        {name: '补贴', type: '+'}, {name: '生活费', type: '+'}];
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (!state.tagList || state.tagList.length === 0) {
-          initialTags.map(tag => store.commit('createTag', tag))
+        initialTags.map(tag => store.commit('createTag', tag));
       }
     },
-    createTag(state, tag: {name: string, type: string}) {
+    createTag(state, tag: { name: string, type: string }) {
       state.createTagError = null;
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(tag.name) >= 0) {
