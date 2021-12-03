@@ -1,9 +1,8 @@
 <template>
   <layout>
-    <header>
-      新建标签
-    </header>
-    {{ tag.name }}
+    <header v-if="tag.type === '-'">新建支出标签</header>
+    <header v-else>新建收入标签</header>
+    {{ tag.type }}
     <div class="newTagName">
       <FormItem field-name="标签名"
                 placeholder="请输入标签名"
@@ -30,6 +29,7 @@ const map: { [key: string]: string } = {
   components: {Button, FormItem}
 })
 export default class createTags extends Vue {
+
   created() {
     this.$store.commit('fetchTags');
   }
@@ -38,17 +38,24 @@ export default class createTags extends Vue {
     return this.$store.state.tagList;
   }
 
+  get newTagType(){
+    return  this.$route.query.newTagType;
+  }
+
   // eslint-disable-next-line no-undef
-  tag: Tag = {id: '', name: ''};
+  tag: Tag = {id: '', name: '', type: (this.newTagType as string)};
 
   createTag() {
-    const name = this.tag.name
-    if (!name) { return window.alert('标签名不能为空'); }
-    this.$store.commit('createTag', name);
+    const name = this.tag.name;
+    const type = this.tag.type;
+    if (!type) { return window.alert('标签类型没了哦！ 请返回重新点击新建标签按钮！')}
+    if (!name) { return window.alert('标签名不能为空！'); }
+    this.$store.commit('createTag', {name, type});
     if (this.$store.state.createTagError) {
       window.alert(map[this.$store.state.createTagError.message] || '未知错误');
     } else {
       window.alert('标签创建成功');
+      this.tag.name = '';
       router.back();
     }
   }
