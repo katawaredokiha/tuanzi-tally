@@ -36,6 +36,7 @@ export default class Tags extends Vue {
   }
 
   get tagsTypeList() {
+    this.selectedTags = [];
     // eslint-disable-next-line no-undef
     return  this.tagList.filter((tag: Tag) => tag.type === this.tagsType)
   }
