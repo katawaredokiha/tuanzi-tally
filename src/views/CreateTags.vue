@@ -2,7 +2,6 @@
   <layout>
     <header v-if="tag.type === '-'">新建支出标签</header>
     <header v-else>新建收入标签</header>
-    {{ tag.type }}
     <div class="newTagName">
       <FormItem field-name="标签名"
                 placeholder="请输入标签名"
