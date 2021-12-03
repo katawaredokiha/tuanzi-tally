@@ -17,6 +17,7 @@ type RecordItem = {// Record 类型声明
 type Tag = {
   id: string;
   name: string;
+  type: string;
 }
 
 type TagListModel = {

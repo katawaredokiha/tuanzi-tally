@@ -48,13 +48,7 @@ const store = new Vuex.Store({
       }
     },
     fetchRecords(state) {
-      const tagsName = ['吃喝', '交通', '买菜', '服饰鞋包', '日用品', '红包', '话费', '娱乐', '医疗', '养车', '网费', '学习', '数码', '水电'];
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
-      if (!state.tagList || state.tagList.length === 0) {
-        for (let i = 0; i < tagsName.length; i++) {
-          store.commit('createTag', `${tagsName[i]}`);
-        }
-      }
     },
     createRecord(state, record: RecordItem) {
       const record2 = clone(record);
@@ -67,17 +61,21 @@ const store = new Vuex.Store({
         JSON.stringify(state.recordList));
     },
     fetchTags(state) {
+      const initialTags = [{name: '吃喝', type: '-'}, {name: '交通', type: '-'}, {name: '买菜', type: '-'}, {name: '服饰鞋包', type: '-'}, {name: '日用品', type: '-'}, {name: '红包', type: '-'}, {name: '话费', type: '-'}, {name: '娱乐', type: '-'}, {name: '医疗', type: '-'}, {name: '养车', type: '-'}, {name: '网费', type: '-'}, {name: '学习', type: '-'}, {name: '数码', type: '-'},  {name: '水电', type: '-'}];
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length === 0) {
+          initialTags.map(tag => store.commit('createTag', tag))
+      }
     },
-    createTag(state, name: string) {
+    createTag(state, tag: {name: string, type: string}) {
       state.createTagError = null;
       const names = state.tagList.map(item => item.name);
-      if (names.indexOf(name) >= 0) {
+      if (names.indexOf(tag.name) >= 0) {
         state.createTagError = new Error('tag name duplicated');
         return;
       }
       const id = createId().toString();
-      state.tagList.push({id, name: name});
+      state.tagList.push({id, name: tag.name, type: tag.type ?? '-'});
       store.commit('saveTags');
     },
     saveTags(state) {
