@@ -13,8 +13,8 @@
           <div class="icon-wrapper">
             <Icon name="wallet"/>
           </div>
-          <div v-if="type === '-'" class="tagName">本月的总支出</div>
-          <div v-else class="tagName">本月的总收入</div>
+          <div v-if="type === '-'" class="tagName">近一个月的总支出</div>
+          <div v-else class="tagName">近一个月的总收入</div>
         </div>
         <div class="right">￥{{ allTotal() }}</div>
       </div>
@@ -148,7 +148,6 @@ export default class Account extends Vue {
         return sum + item.amount;
       }, 0);
     });
-    console.log(result);
     return result;
   }
 
