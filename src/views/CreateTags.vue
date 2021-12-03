@@ -28,7 +28,6 @@ const map: { [key: string]: string } = {
   components: {Button, FormItem}
 })
 export default class createTags extends Vue {
-
   created() {
     this.$store.commit('fetchTags');
   }
@@ -37,8 +36,8 @@ export default class createTags extends Vue {
     return this.$store.state.tagList;
   }
 
-  get newTagType(){
-    return  this.$route.query.newTagType;
+  get newTagType() {
+    return this.$route.query.newTagType;
   }
 
   // eslint-disable-next-line no-undef
@@ -47,7 +46,7 @@ export default class createTags extends Vue {
   createTag() {
     const name = this.tag.name;
     const type = this.tag.type;
-    if (!type) { return window.alert('标签类型没了哦！ 请返回重新点击新建标签按钮！')}
+    if (!type) { return window.alert('标签类型没了哦！ 请返回重新点击新建标签按钮！');}
     if (!name) { return window.alert('标签名不能为空！'); }
     this.$store.commit('createTag', {name, type});
     if (this.$store.state.createTagError) {
