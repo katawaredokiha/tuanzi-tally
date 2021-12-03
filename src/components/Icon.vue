@@ -19,10 +19,9 @@ try {importAll(require.context('../assets/icons', true, /\.svg$/));} catch (erro
 export default class Icon extends Vue {
   @Prop() name?: string;
 
-  iconName = ['account', 'add', 'check', 'close', 'delete', 'edit',
-              'left', 'money', 'right', 'statistics', 'wallet', '买菜',
-              '交通', '养车', '医疗', '吃喝', '娱乐', '学习', '数码', '日用品',
-              '服饰鞋包', '水电', '红包', '网费', '话费'];
+  iconName = ['account', 'delete', 'edit', 'money', 'statistics', 'wallet',
+              '买菜', '交通', '养车', '医疗', '吃喝', '娱乐', '学习', '数码', '房租',
+              '日用品', '服饰鞋包', '水电', '红包', '网费', '话费', '超市', '零食水果'];
 }
 </script>
 
