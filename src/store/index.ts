@@ -75,7 +75,7 @@ const store = new Vuex.Store({
         return;
       }
       const id = createId().toString();
-      state.tagList.push({id, name: tag.name, type: tag.type ?? '-'});
+      state.tagList.push({id, name: tag.name, type: tag.type});
       store.commit('saveTags');
     },
     saveTags(state) {

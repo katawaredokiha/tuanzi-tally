@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li v-for="tag in tagList" :key="tag.id"
+      <li v-for="tag in tagsTypeList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
         <div class="icon-wrapper">
@@ -11,7 +11,7 @@
       </li>
       <li class="new">
         <router-link to="/labels">
-          <div class="icon-wrapper">
+          <div class="icon-wrapper" @click="deliverType(tagsType)">
             <Icon name="edit"/>
           </div>
           <span>编辑</span>
@@ -23,14 +23,21 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
+  @Prop() tagsType?: string;
+
   selectedTags: string[] = [];
 
   get tagList() {
     return this.$store.state.tagList;
+  }
+
+  get tagsTypeList() {
+    // eslint-disable-next-line no-undef
+    return  this.tagList.filter((tag: Tag) => tag.type === this.tagsType)
   }
 
   created() {
@@ -45,6 +52,13 @@ export default class Tags extends Vue {
       this.selectedTags.push(tag);
     }
     this.$emit('update:value', this.selectedTags);
+  }
+
+  deliverType(type: string){
+    this.$router.push({
+      path:'/labels',
+      query:{TagsListType: type},
+    })
   }
 }
 </script>

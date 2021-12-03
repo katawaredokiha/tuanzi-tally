@@ -3,7 +3,7 @@
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <div class="tags">
       <div class="tag"
-           v-for="tag in tags" :key="tag.id">
+           v-for="tag in tagsTypeList" :key="tag.id">
         <div class="icon-name">
           <div class="icon-wrapper">
             <Icon :name="tag.name"/>
@@ -16,7 +16,7 @@
       </div>
     </div>
     <router-link to="/labels/create-tags" class="add">
-      <Button>添加新标签</Button>
+      <Button @click="deliverType(record.type)">添加新标签</Button>
     </router-link>
   </Layout>
 </template>
@@ -35,10 +35,20 @@ export default class Labels extends Vue {
   recordTypeList = recordTypeList;
   // eslint-disable-next-line no-undef
   record: RecordItem = {
-    tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString()
+    tags: [],
+    notes: '',
+    type: (this.ListType ?? this.returnType) as string ?? '-',
+    amount: 0,
+    createdAt: new Date().toISOString()
   };
-  // eslint-disable-next-line no-undef
-  // tag: Tag = {id: '', name: ''};
+
+  get ListType(){
+    return  this.$route.query.TagsListType;
+  }
+
+  get returnType() {
+    return this.$route.query.returnTagType;
+  }
 
   get tags() {
     return this.$store.state.tagList;
@@ -48,12 +58,20 @@ export default class Labels extends Vue {
     this.$store.commit('fetchTags');
   }
 
-  get currentTag() {
-    return this.$store.state.currentTag;
+  get tagsTypeList() {
+    // eslint-disable-next-line no-undef
+    return  this.tags.filter((tag: Tag) => tag.type === this.record.type)
   }
 
   remove(id: string) {
     this.$store.commit('removeTag', id);
+  }
+
+  deliverType(type: string){
+    this.$router.push({
+      path:'/labels/create-tags',
+      query:{newTagType: type},
+    })
   }
 }
 </script>
