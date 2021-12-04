@@ -58,7 +58,7 @@ export default class Tags extends Vue {
   deliverType(type: string){
     this.$router.push({
       path:'/labels',
-      query:{TagsListType: type},
+      query:{tagsListType: type},
     })
   }
 }

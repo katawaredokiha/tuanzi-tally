@@ -43,7 +43,7 @@ export default class Labels extends Vue {
   };
 
   get ListType(){
-    return  this.$route.query.TagsListType;
+    return  this.$route.query.tagsListType;
   }
 
   get returnType() {
