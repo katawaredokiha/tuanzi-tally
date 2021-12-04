@@ -2,14 +2,19 @@
   <layout>
     <header v-if="tag.type === '-'">新建支出标签</header>
     <header v-else>新建收入标签</header>
-    <div class="newTagName">
-      <FormItem field-name="标签名"
-                placeholder="请输入标签名"
-                :value.sync="tag.name"/>
-    </div>
-    <div class="button-wrapper">
-      <Button @click="createTag">确认</Button>
-    </div>
+    <main>
+      <div class="newTagName">
+        <FormItem field-name="标签名"
+                  placeholder="请输入标签名"
+                  :value.sync="tag.name"/>
+      </div>
+      <div class="button-wrapper">
+        <Button @click="createTag">确认</Button>
+      </div>
+    </main>
+    <router-link to="/labels" class="return">
+      <Button @click="returnType(tag.type)">返回标签页</Button>
+    </router-link>
   </layout>
 </template>
 
@@ -18,7 +23,6 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
-import router from '@/router';
 
 const map: { [key: string]: string } = {
   'tag name duplicated': '标签名重复了'
@@ -54,8 +58,14 @@ export default class createTags extends Vue {
     } else {
       window.alert('标签创建成功');
       this.tag.name = '';
-      router.back();
     }
+  }
+
+  returnType(type: string){
+    this.$router.push({
+      path:'/labels',
+      query:{returnTagType: type},
+    })
   }
 }
 </script>
@@ -69,6 +79,11 @@ header {
   font-weight: 700;
   background: #f5f5f5;
 }
+main {
+  flex: 1;
+  overflow-y: auto;
+  height: calc(100% - 96px);
+}
 .newTagName {
   padding: 8px 0;
   @extend %innerShadow;
@@ -76,13 +91,13 @@ header {
     color: #f69604;
   }
 }
-.button-wrapper {
+.button-wrapper, .return {
   height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
-  .button {
-    padding: 0 24px;
-  }
+}
+.button {
+  padding: 0 24px;
 }
 </style>
