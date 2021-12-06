@@ -6,6 +6,7 @@
         <input :type="type || 'text'"
                :value="x(value)"
                @input="onValueChanged($event.target.value)"
+               @focus="preventScroll()"
                :placeholder="this.placeholder">
       </template>
       <template v-else>
@@ -20,7 +21,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import dayjs from 'dayjs';
 
 @Component
@@ -36,6 +37,12 @@ export default class FormItem extends Vue {
 
   x(isoString: string) {
     return dayjs(isoString).format('YYYY-MM-DD');
+  }
+
+  preventScroll() {
+    document.body.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+    }, {passive: false});//passive 参数不能省略，用来兼容ios和android
   }
 }
 </script>
@@ -55,7 +62,7 @@ export default class FormItem extends Vue {
     flex-grow: 1;
     background: transparent;
     border: none;
-    padding:0 16px 0 8px;
+    padding: 0 16px 0 8px;
   }
 }
 </style>
