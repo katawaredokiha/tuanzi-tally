@@ -6,7 +6,6 @@
         <input :type="type || 'text'"
                :value="x(value)"
                @input="onValueChanged($event.target.value)"
-               @focus="preventScroll()"
                :placeholder="this.placeholder">
       </template>
       <template v-else>
@@ -37,12 +36,6 @@ export default class FormItem extends Vue {
 
   x(isoString: string) {
     return dayjs(isoString).format('YYYY-MM-DD');
-  }
-
-  preventScroll() {
-    document.body.addEventListener('touchmove', function (e) {
-      e.preventDefault();
-    }, {passive: false});//passive 参数不能省略，用来兼容ios和android
   }
 }
 </script>
