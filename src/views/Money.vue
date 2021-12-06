@@ -1,5 +1,5 @@
 <template>
-  <Layout class-prefix="layout">
+  <Layout class-prefix="layout" :style="{height:h+'px'}">
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <Tags @update:value="record.tags = $event" :tags-type="record.type"/>
     <div class="notes">
@@ -31,12 +31,8 @@ import recordTypeList from '@/constants/typeList';
   components: {Tabs, Tags, FormItem, NumberPad},
 })
 export default class Money extends Vue {
+  h = '';
   recordTypeList = recordTypeList;
-
-  get recordList() {
-    return this.$store.state.recordList;
-  }
-
   // eslint-disable-next-line no-undef
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString()
@@ -44,6 +40,14 @@ export default class Money extends Vue {
 
   created() {
     this.$store.commit('fetchRecords');
+  }
+
+  mounted(){
+    this.h = `${document.body.clientHeight}`;
+  }
+
+  get recordList() {
+    return this.$store.state.recordList;
   }
 
   onUpdateNotes(value: string) {

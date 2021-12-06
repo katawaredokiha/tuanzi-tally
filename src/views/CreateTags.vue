@@ -1,5 +1,5 @@
 <template>
-  <layout>
+  <layout :style="{height:h+'px'}">
     <header v-if="tag.type === '-'">新建支出标签</header>
     <header v-else>新建收入标签</header>
     <main>
@@ -32,8 +32,14 @@ const map: { [key: string]: string } = {
   components: {Button, FormItem}
 })
 export default class createTags extends Vue {
+  h = '';
+
   created() {
     this.$store.commit('fetchTags');
+  }
+
+  mounted(){
+    this.h = `${document.body.clientHeight}`;
   }
 
   get tagList() {
