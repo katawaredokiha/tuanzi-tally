@@ -49,19 +49,6 @@ const store = new Vuex.Store({
         window.alert('删除失败');
       }
     },
-    fetchRecords(state) {
-      state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
-    },
-    createRecord(state, record: RecordItem) {
-      const record2 = clone(record);
-      record2.createdAt = record2.createdAt || new Date().toISOString();
-      state.recordList.push(record2);
-      store.commit('saveRecords');
-    },
-    saveRecords(state) {
-      window.localStorage.setItem('recordList',
-        JSON.stringify(state.recordList));
-    },
     fetchTags(state) {
       axios.get(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/tagList`).then(response => {state.tagList = response.data;});
       setTimeout(() => {
@@ -99,6 +86,24 @@ const store = new Vuex.Store({
     //     {name: '补贴', type: '+'}, {name: '生活费', type: '+'}];
     //   const newTagList = initialTags.map(tag => store.commit('createTag', tag));
     //   axios.put('https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/tagList/:id', ...state.tagList).then(request => console.log('request',request.data));
+    // },
+    fetchRecords(state) {
+      axios.get('https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList').then(response => {state.recordList = response.data;})
+      setTimeout(()=> {
+        console.log('state.recordList',state.recordList);
+        console.log('state.recordList111',JSON.stringify(state.recordList));
+      },5000)
+    },
+    createRecord(state, record: RecordItem) {
+      const record2 = clone(record);
+      record2.createdAt = record2.createdAt || new Date().toISOString();
+      state.recordList.push(record2);
+      // store.commit('saveRecords');
+      axios.post(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList`, record2).then(response => console.log('response', response.data))
+    },
+    // saveRecords(state) {
+    //   window.localStorage.setItem('recordList',
+    //     JSON.stringify(state.recordList));
     // },
   },
 });
