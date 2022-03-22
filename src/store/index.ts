@@ -41,7 +41,7 @@ const store = new Vuex.Store({
       }
       if (index >= 0) {
         state.tagList.splice(index, 1);
-        axios.delete(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/tagList/${id}`).then(request => console.log('request', request.data));
+        axios.delete(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/tagList/${id}`);
         window.alert('已删除');
       } else {
         window.alert('删除失败');
@@ -55,7 +55,7 @@ const store = new Vuex.Store({
       const tagLists = state.tagList;
       const names = tagLists.map(item => item.name);
       if (names.indexOf(tag.name) >= 0) {
-        state.createTagError = new Error('tag name duplicated');
+          state.createTagError = new Error('tag name duplicated');
         return;
       }
       const id = tagLists[tagLists.length - 1].id + 1;
@@ -64,13 +64,26 @@ const store = new Vuex.Store({
       axios.post(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/tagList/`, newTag);
     },
     fetchRecords(state) {
-      axios.get('https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList').then(response => {state.recordList = response.data});
+      axios.get('https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList').then(response => {state.recordList = response.data;});
     },
     createRecord(state, record: RecordItem) {
       const record2 = clone(record);
+      let lastId = '-1'
+      if (state.recordList.length !== 0) {
+        lastId = state.recordList[state.recordList.length - 1].id
+      }
+      record2.id =(parseInt(lastId) + 1).toString();
       record2.createdAt = record2.createdAt || new Date().toISOString();
       state.recordList.push(record2);
       axios.post(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList`, record2);
+    },
+    updateRecord(state, record: RecordItem) {
+      axios.put(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList/${record.id}`, record)
+      window.alert('账单已修改');
+    },
+    deleteRecord(state, id: string) {
+      axios.delete(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList/${id}`);
+      window.alert('删除成功')
     },
   },
 });
