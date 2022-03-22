@@ -78,7 +78,9 @@ const store = new Vuex.Store({
       axios.post(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList`, record2);
     },
     updateRecord(state, record: RecordItem) {
-      axios.put(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList/${record.id}`, record)
+      const record2: RecordItem = clone(record);
+      record2.amount = parseInt((record2.amount).toString())
+      axios.put(`https://622f04d73ff58f023c134e48.mockapi.io/tuanzi/recordList/${record.id}`, record2)
       window.alert('账单已修改');
     },
     deleteRecord(state, id: string) {
