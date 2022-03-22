@@ -7,7 +7,9 @@
           <li v-for="(group, index) in groupedList" :key="index">
             <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
             <ol>
-              <li v-for="item in group.items" :key="item.id" class="record">
+              <router-link :to="`/account/edit-records/${item.id}`"
+                           v-for="item in group.items" :key="item.id"
+                           class="record">
                 <div class="left">
                   <div class="icon-wrapper">
                     <Icon :name="item.tags[0].name"/>
@@ -17,8 +19,8 @@
                     <span class="notes">{{ item.notes }}</span>
                   </div>
                 </div>
-                <div class="right">￥{{ item.amount }} </div>
-              </li>
+                <div class="right">￥{{ item.amount }}</div>
+              </router-link>
             </ol>
           </li>
         </ol>
@@ -181,7 +183,7 @@ export default class Account extends Vue {
     .icon-wrapper {
       width: 40px;
       height: 40px;
-      background: #f0f0f0 ;
+      background: #f0f0f0;
       border-radius: 20px;
       display: flex;
       justify-content: center;
