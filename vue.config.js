@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/tuanzi-tally-website/'
+    ? '/tuanzi-tally-website-whole/'
     : '/',
   lintOnSave: false,
   chainWebpack: config => {
