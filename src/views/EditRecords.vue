@@ -57,6 +57,10 @@ export default class createTags extends Vue {
     }
   }
 
+  mounted(){
+    this.h = `${document.body.clientHeight}`;
+  }
+
   deleteRecord(id: string) {
     this.$store.commit('deleteRecord', id);
     this.$router.back();
