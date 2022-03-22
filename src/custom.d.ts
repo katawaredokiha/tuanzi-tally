@@ -7,6 +7,7 @@ type RootState = {
 }
 
 type RecordItem = {// Record 类型声明
+  id: string
   tags: Tag[]
   notes: string
   type: string

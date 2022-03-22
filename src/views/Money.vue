@@ -35,7 +35,7 @@ export default class Money extends Vue {
   recordTypeList = recordTypeList;
   // eslint-disable-next-line no-undef
   record: RecordItem = {
-    tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString()
+    id: '', tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString()
   };
 
   created() {

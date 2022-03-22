@@ -35,6 +35,7 @@ export default class Labels extends Vue {
   recordTypeList = recordTypeList;
   // eslint-disable-next-line no-undef
   record: RecordItem = {
+    id: '',
     tags: [],
     notes: '',
     type: (this.ListType ?? this.returnType) as string ?? '-',
