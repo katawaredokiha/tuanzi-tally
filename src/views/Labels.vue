@@ -43,8 +43,8 @@ export default class Labels extends Vue {
     createdAt: new Date().toISOString()
   };
 
-  get ListType(){
-    return  this.$route.query.tagsListType;
+  get ListType() {
+    return this.$route.query.tagsListType;
   }
 
   get returnType() {
@@ -61,18 +61,18 @@ export default class Labels extends Vue {
 
   get tagsTypeList() {
     // eslint-disable-next-line no-undef
-    return  this.tags.filter((tag: Tag) => tag.type === this.record.type)
+    return this.tags.filter((tag: Tag) => tag.type === this.record.type);
   }
 
   remove(id: string) {
     this.$store.commit('removeTag', id);
   }
 
-  deliverType(type: string){
+  deliverType(type: string) {
     this.$router.push({
-      path:'/labels/create-tags',
-      query:{newTagType: type},
-    })
+      path: '/labels/create-tags',
+      query: {newTagType: type},
+    });
   }
 }
 </script>

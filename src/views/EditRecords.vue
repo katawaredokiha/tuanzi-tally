@@ -57,19 +57,19 @@ export default class createTags extends Vue {
     }
   }
 
-  mounted(){
+  mounted() {
     this.h = `${document.body.clientHeight}`;
   }
 
   deleteRecord(id: string) {
     this.$store.commit('deleteRecord', id);
-    this.$router.back();
+    this.$router.go(-1);
   }
 
   // eslint-disable-next-line no-undef
   updateRecord(record: RecordItem) {
-    this.$store.commit('updateRecord', record)
-    this.$router.back();
+    this.$store.commit('updateRecord', record);
+    this.$router.go(-1);
   }
 
   cancel() {

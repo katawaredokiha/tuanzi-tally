@@ -56,13 +56,13 @@ export default class createTags extends Vue {
   createTag() {
     const name = this.tag.name;
     const type = this.tag.type;
-    if (!type) { return window.alert('标签类型没了哦！ 请返回重新点击新建标签按钮！');}
-    if (!name) { return window.alert('标签名不能为空！'); }
+    if (!type) { return this.$toast('标签类型没了哦！ 请返回重新点击新建标签按钮！');}
+    if (!name) { return this.$toast('标签名不能为空！'); }
     this.$store.commit('createTag', {name, type});
     if (this.$store.state.createTagError) {
       window.alert(map[this.$store.state.createTagError.message] || '未知错误');
     } else {
-      window.alert('标签创建成功');
+      this.$toast('标签创建成功')
       this.tag.name = '';
     }
   }
