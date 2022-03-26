@@ -2,7 +2,9 @@
   <layout :style="{height:h+'px'}">
     <header>
       编辑账单
-      <Icon name="delete" class="delete-icon" @click="deleteRecord(record.id)"/>
+      <div class="delete-icon" @click="deleteRecord(record.id)">
+        <Icon name="delete"/>
+      </div>
     </header>
     <main>
       <div class="record">
@@ -63,13 +65,17 @@ export default class createTags extends Vue {
 
   deleteRecord(id: string) {
     this.$store.commit('deleteRecord', id);
-    this.$router.go(-1);
+    setTimeout(() => {
+      this.$router.go(-1);
+    }, 1500);
   }
 
   // eslint-disable-next-line no-undef
   updateRecord(record: RecordItem) {
     this.$store.commit('updateRecord', record);
-    this.$router.go(-1);
+    setTimeout(() => {
+      this.$router.go(-1);
+    }, 1500);
   }
 
   cancel() {
@@ -79,7 +85,6 @@ export default class createTags extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
 header {
   height: 48px;
   line-height: 48px;
@@ -89,10 +94,17 @@ header {
   position: relative;
   .delete-icon {
     position: absolute;
-    top: 12px;
-    right: 18px;
-    color: red;
-    font-size: 24px;
+    top: 8px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      color: red;
+      font-size: 24px;
+    }
   }
 }
 %item {
@@ -120,7 +132,7 @@ main {
         background: #f69604;
         color: white;
         border-radius: 20px;
-        padding: 0px 4px;
+        padding: 0 4px;
         margin-right: 8px;
         display: flex;
         justify-content: center;
@@ -147,7 +159,7 @@ main {
   align-items: center;
   .button {
     height: 40px;
-    padding: 0px 28px;
+    padding: 0 28px;
     margin-bottom: 24px;
   }
   .cancel {
