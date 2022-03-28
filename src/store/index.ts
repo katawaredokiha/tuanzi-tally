@@ -6,7 +6,6 @@ import {Toast} from 'vant';
 import 'vant/lib/toast/style';
 
 Vue.use(Vuex); // 把 store 绑到 Vue.prototype.$store = store
-Vue.use(Toast);
 
 const store = new Vuex.Store({
   state: {
